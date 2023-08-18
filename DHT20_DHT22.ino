@@ -38,6 +38,21 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 unsigned long previousMillis = millis();
 
+
+void writeTextAndGrafic(String firstRow, String secondRow, const unsigned char *bitmapData) {
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+
+  display.drawBitmap(0, (display.height() - 40) / 2, bitmapData, 40, 40, 1);
+  display.setTextSize(2);
+  display.setCursor(60, 20);
+  display.println(firstRow);
+  display.setTextSize(1);
+  display.setCursor(60, 40);
+  display.println(secondRow);
+  display.display();
+}
+
 void setup() {
   Serial.begin(115200);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
