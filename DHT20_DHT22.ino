@@ -25,11 +25,6 @@
 // Default I2C address = 0x38
 DFRobot_DHT20 dht20;
 
-// DHT22
-#define DHTPIN 5
-#define DHTTYPE DHT22
-DHT dht22 = DHT(DHTPIN, DHTTYPE);
-
 // OLED 0,96
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -58,7 +53,6 @@ void setup() {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   delay(100);
   dht20.begin();
-  dht22.begin();
 
   Serial.println("Setup finished");
 }
