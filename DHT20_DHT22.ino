@@ -20,6 +20,10 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <DHT.h>  // DHT22
+#include <DFRobot_DHT20.h>
+
+// Default I2C address = 0x38
+DFRobot_DHT20 dht20;
 
 // DHT22
 #define DHTPIN 5
@@ -38,6 +42,7 @@ void setup() {
   Serial.begin(115200);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   delay(100);
+  dht20.begin();
   dht22.begin();
 
   Serial.println("Setup finished");
@@ -52,11 +57,11 @@ void loop() {
 
     previousMillis = currentMillis;
 
-    float dht22_temperature = dht22.readTemperature();
-    float dht22_humidity = dht22.readHumidity();
+     float dht20_temperature = dht20.getTemperature();
+    float dht20_humidity = dht20.getHumidity() * 100;
 
-    Serial.println(dht22_temperature);
-    Serial.println(dht22_humidity);
+    Serial.println(dht20_temperature);
+    Serial.println(dht20_humidity);
 
     display.clearDisplay();
     display.setTextSize(1);
@@ -65,20 +70,20 @@ void loop() {
     display.setTextSize(2);
     int16_t x1, y1;
     uint16_t w, h;
-    display.getTextBounds("DHT22", 0, 0, &x1, &y1, &w, &h);
+    display.getTextBounds("DHT20", 0, 0, &x1, &y1, &w, &h);
     int startX = (SCREEN_WIDTH - w) / 2;
 
     display.setCursor(startX, 2);
-    display.print("DHT22");
+    display.print("DHT20");
 
     display.setTextSize(1);
     display.setCursor(startX, 35);
-    display.print(dht22_temperature);
+    display.print(dht20_temperature);
     display.print((char)247);
     display.print("C ");
 
     display.setCursor(startX, 45);
-    display.print(dht22_humidity);
+    display.print(dht20_humidity);
     display.print("%");
 
     display.display();
