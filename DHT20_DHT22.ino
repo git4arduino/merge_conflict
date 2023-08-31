@@ -61,7 +61,7 @@ void loop() {
 
   unsigned long currentMillis = millis();
 
-  if (currentMillis - previousMillis >= (1000 * 2)) {
+  if (currentMillis - previousMillis >= (2000 * 1)) {
     Serial.println("neue Werte");
 
     previousMillis = currentMillis;
